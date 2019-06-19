@@ -23,7 +23,7 @@ kind: Deployment
 metadata:
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.rtorrents: regexp:^latest$
+    flux.weave.works/tag.rtorrent: regexp:^latest$
   labels:
     app: rtorrent
   name: rtorrent
