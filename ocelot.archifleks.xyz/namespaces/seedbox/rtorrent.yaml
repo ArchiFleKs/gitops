@@ -115,6 +115,7 @@ metadata:
     ingress.kubernetes.io/auth-type: basic
     kubernetes.io/ingress.class: traefik
   name: torrents
+  namespace: seedbox
 spec:
   rules:
   - host: torrents.archifleks.xyz

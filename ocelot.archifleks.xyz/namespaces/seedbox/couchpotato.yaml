@@ -84,6 +84,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
   name: couchpotato
+  namespace: seedbox
 spec:
   rules:
   - host: movies.archifleks.xyz
