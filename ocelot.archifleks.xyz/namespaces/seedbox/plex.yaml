@@ -47,7 +47,7 @@ spec:
                 - amd64
       initContainers:
       - name: init-rtorrent
-        image: alpine
+        image: alpine:3.9
         command: ['sh', '-c', 'rm -rf /config/Library/Application Support/Plex Media Server/plexmediaserver.pid']
         volumeMounts:
         - mountPath: /config
@@ -62,7 +62,7 @@ spec:
           value: "977"
         - name: TZ
           value: Europe/Paris
-          image: linuxserver/plex:latest
+        image: linuxserver/plex:latest
         imagePullPolicy: Always
         name: plex
         ports:

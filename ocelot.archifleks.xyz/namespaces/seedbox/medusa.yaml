@@ -54,7 +54,7 @@ spec:
           value: "977"
         - name: TZ
           value: Europe/Paris
-          image: linuxserver/medusa:latest
+        image: linuxserver/medusa:latest
         imagePullPolicy: Always
         name: medusa
         ports:
