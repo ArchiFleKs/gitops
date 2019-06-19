@@ -17,13 +17,13 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
   labels:
     app: medusa
   name: medusa
   namespace: seedbox
   annotations:
     flux.weave.works/automated: "true"
+    flux.weave.works/tag.medusa: glob:latest
 spec:
   replicas: 1
   revisionHistoryLimit: 1
