@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.podinfod: semver:~1
+    flux.weave.works/tag.traefik-ingress-lb-init: semver:~1
   labels:
     k8s-app: traefik-ingress-lb
   name: traefik-ingress-controller
