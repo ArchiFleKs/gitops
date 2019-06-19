@@ -19,7 +19,7 @@ kind: Deployment
 metadata:
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.plex: glob:latest
+    flux.weave.works/tag.plex: regexp:^latest$
   labels:
     app: plex
   name: plex

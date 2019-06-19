@@ -23,7 +23,7 @@ metadata:
   namespace: seedbox
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.couchpotato: glob:latest
+    flux.weave.works/tag.couchpotato: regexp:^latest$
 spec:
   replicas: 1
   revisionHistoryLimit: 1
