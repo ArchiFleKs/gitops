@@ -85,6 +85,7 @@ spec:
           name: plex-library
         - mountPath: /tmp
           name: tmp
+      hostNetwork: true
       securityContext:
         fsGroup: 977
       volumes:
