@@ -10,7 +10,7 @@ metadata:
   name: traefik-ingress-controller
   namespace: kube-system
 spec:
-  replicas: 1
+  replicas: 0
   revisionHistoryLimit: 1
   selector:
     matchLabels:
