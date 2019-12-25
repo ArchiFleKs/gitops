@@ -48,7 +48,7 @@ spec:
                 - amd64
       initContainers:
       - name: init-rtorrent
-        image: alpine:3
+        image: alpine:3.11
         command: ['sh', '-c', 'rm -rf /config/Library/Application Support/Plex Media
             Server/plexmediaserver.pid']
         volumeMounts:
