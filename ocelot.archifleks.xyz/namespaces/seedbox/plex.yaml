@@ -69,10 +69,8 @@ spec:
         name: plex
         ports:
         - containerPort: 32400
-          hostPort: 32400
           protocol: TCP
         - containerPort: 32400
-          hostPort: 32400
           protocol: UDP
         resources:
           requests:
@@ -87,6 +85,7 @@ spec:
           name: tmp
       securityContext:
         fsGroup: 977
+      hostNetwork: true
       volumes:
       - hostPath:
           path: /srv/configs/plex
