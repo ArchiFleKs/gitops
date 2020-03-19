@@ -26,7 +26,6 @@ metadata:
     flux.weave.works/automated: "true"
     flux.weave.works/tag.transmission: "glob:amd64-*"
 spec:
-  replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
@@ -50,6 +49,16 @@ spec:
           value: "977"
         - name: TZ
           value: Europe/Paris
+        - name: USER
+          valueFrom:
+            secretKeyRef:
+              name: transmission
+              key: user
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: transmission
+              key: password
         ports:
         - containerPort: 9091
           protocol: TCP
