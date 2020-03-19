@@ -91,6 +91,8 @@ spec:
           subPath: rtorrent.rc
         - mountPath: /downloads
           name: rtorrent-downloads
+        - mountPath: /jfs
+          name: rtorrent-jfs
         - mountPath: /config/rutorrent
           name: rutorrent-config
       securityContext:
@@ -107,6 +109,9 @@ spec:
       - hostPath:
           path: /srv/seedbox
         name: rtorrent-downloads
+      - hostPath:
+          path: /jfs
+        name: rtorrent-jfs
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
