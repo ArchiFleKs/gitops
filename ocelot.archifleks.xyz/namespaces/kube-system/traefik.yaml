@@ -37,7 +37,7 @@ spec:
         envFrom:
         - secretRef:
             name: aws-route53-creds
-        image: traefik:v1.7.21
+        image: traefik:v1.7.22
         imagePullPolicy: Always
         name: traefik-ingress-lb-init
         ports:
