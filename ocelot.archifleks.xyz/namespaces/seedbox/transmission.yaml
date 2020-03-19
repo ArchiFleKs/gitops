@@ -46,9 +46,6 @@ spec:
           value: "977"
         - name: PUID
           value: "977"
-        resources:
-          limits:
-            cpu: "2"
         ports:
         - containerPort: 9091
           protocol: TCP
