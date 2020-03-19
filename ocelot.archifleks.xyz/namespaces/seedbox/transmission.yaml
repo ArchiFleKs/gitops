@@ -42,7 +42,7 @@ spec:
       containers:
       - name: transmission
         imagePullPolicy: Always
-        image: linuxserver/transmission:amd64-2.94-r2-ls44
+        image: linuxserver/transmission:arm64v8-2.94-r2-ls44
         env:
         - name: PGID
           value: "977"
