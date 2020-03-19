@@ -71,6 +71,7 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
+          name: http
         - containerPort: 5000
           protocol: TCP
         - containerPort: 6881
@@ -79,6 +80,9 @@ spec:
         - containerPort: 51413
           hostPort: 51413
           protocol: TCP
+        - containerPort: 51413
+          hostPort: 51413
+          protocol: UDP
         resources:
           limits:
             cpu: "2"
@@ -113,7 +117,7 @@ spec:
           path: /jfs
         name: rtorrent-jfs
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
