@@ -31,6 +31,8 @@ spec:
   selector:
     matchLabels:
       app: transmission
+  strategy:
+    type: Recreate
   template:
     metadata:
       namespace: seedbox
