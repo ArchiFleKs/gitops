@@ -9,7 +9,7 @@ metadata:
 spec:
   ports:
   - name: transmission
-    port: http
+    port: 9091
     protocol: TCP
   selector:
     app: transmission
