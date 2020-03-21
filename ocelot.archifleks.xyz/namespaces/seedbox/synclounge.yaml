@@ -1,0 +1,87 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: synclounge
+  name: synclounge
+  namespace: seedbox
+spec:
+  ports:
+  - port: 8088
+    protocol: TCP
+  - port: 8089
+    protocol: TCP
+  selector:
+    app: synclounge
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: synclounge
+  name: synclounge
+  namespace: seedbox
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.synclounge: regexp:^latest$
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: synclounge
+  template:
+    metadata:
+      labels:
+        app: synclounge
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+      containers:
+      - image: starbix/synclounge:latest
+        imagePullPolicy: Always
+        name: synclounge
+        ports:
+        - containerPort: 8088
+          protocol: TCP
+        - containerPort: 8089
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 100m
+            memory: 100M
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: synclounge
+  namespace: seedbox
+spec:
+  rules:
+  - host: synclounge.archifleks.xyz
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: synclounge
+          servicePort: 8088
+  - host: synclounge.archifleks.xyz
+    http:
+      paths:
+      - path: /slserver
+        backend:
+          serviceName: synclounge
+          servicePort: 8089
