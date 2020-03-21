@@ -10,8 +10,10 @@ spec:
   ports:
   - port: 8088
     protocol: TCP
+    name: app
   - port: 8089
     protocol: TCP
+    name: server
   selector:
     app: synclounge
   type: ClusterIP
