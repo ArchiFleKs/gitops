@@ -52,17 +52,24 @@ spec:
       - image: starbix/synclounge:latest
         imagePullPolicy: Always
         name: synclounge
+        volumeMounts:
+        - mountPath: /opt/synclounge/settings.json
+          name: synclounge-config
+          subPath: settings.json
         ports:
         - containerPort: 8088
           protocol: TCP
         - containerPort: 8089
           protocol: TCP
         resources:
-          limits:
-            cpu: 500m
           requests:
             cpu: 100m
             memory: 100M
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: synclounge-config
+        name: synclounge-config
 ---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
@@ -87,3 +94,26 @@ spec:
         backend:
           serviceName: synclounge
           servicePort: 8089
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: synclounge-config
+  namespace: seedbox
+data:
+  settings.json: |
+    {
+      "accessUrl": "",
+      "autoJoin": false,
+      "autoJoinServer": "",
+      "autoJoinRoom": "",
+      "autoJoinPassword": ""
+      "servers": [
+        {
+          "name": "ArchiFleKs",
+          "location": "France",
+          "url": "https://synclounge.archifleks.xyz/slserver",
+          "logo": "https://synclounge.archifleks.xyz/flags/eu.png"
+        },
+      ]
+    }
