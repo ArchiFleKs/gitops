@@ -105,9 +105,15 @@ data:
     {
       "accessUrl": "",
       "autoJoin": false,
-      "autoJoinServer": "",
+      "autoJoinServer": "https://synclounge.archifleks.xyz/slserver",
       "autoJoinRoom": "",
       "autoJoinPassword": "",
+      "customServer": {
+        "name": "ArchiFleKs",
+        "location": "France",
+        "url": "https://synclounge.archifleks.xyz/slserver",
+        "logo": "https://synclounge.archifleks.xyz/flags/eu.png"
+      },
       "servers": [
         {
           "name": "ArchiFleKs",
