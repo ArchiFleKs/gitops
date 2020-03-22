@@ -107,7 +107,7 @@ data:
       "autoJoin": false,
       "autoJoinServer": "",
       "autoJoinRoom": "",
-      "autoJoinPassword": ""
+      "autoJoinPassword": "",
       "servers": [
         {
           "name": "ArchiFleKs",
