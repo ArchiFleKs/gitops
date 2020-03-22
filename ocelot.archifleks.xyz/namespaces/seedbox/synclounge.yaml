@@ -49,7 +49,7 @@ spec:
                 values:
                 - amd64
       containers:
-      - image: starbix/synclounge:latest
+      - image: starbix/synclounge:dev
         imagePullPolicy: Always
         name: synclounge
         volumeMounts:
