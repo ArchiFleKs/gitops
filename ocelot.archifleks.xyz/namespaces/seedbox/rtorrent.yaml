@@ -52,7 +52,7 @@ spec:
                 - amd64
       initContainers:
       - name: init-rtorrent
-        image: alpine:3.11.5
+        image: alpine:3
         command: ['sh', '-c', 'rm -rf /downloads/sessions/rtorrent.lock']
         volumeMounts:
         - mountPath: /downloads
