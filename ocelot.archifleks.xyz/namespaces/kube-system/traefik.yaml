@@ -22,6 +22,7 @@ spec:
       labels:
         k8s-app: traefik-ingress-lb
     spec:
+      shareProcessNamespace: true
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
