@@ -1,0 +1,103 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: medusa
+  name: medusa
+  namespace: seedbox
+spec:
+  ports:
+  - port: 8081
+    protocol: TCP
+  selector:
+    app: medusa
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: medusa
+  name: medusa
+  namespace: seedbox
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.medusa: regexp:^latest$
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: medusa
+  template:
+    metadata:
+      labels:
+        app: medusa
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+      containers:
+      - env:
+        - name: VERSION
+          value: latest
+        - name: PGID
+          value: "977"
+        - name: PUID
+          value: "977"
+        - name: TZ
+          value: Europe/Paris
+        image: linuxserver/medusa:latest
+        imagePullPolicy: Always
+        name: medusa
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 300m
+          requests:
+            cpu: 100m
+        volumeMounts:
+        - mountPath: /config
+          name: medusa-data
+        - mountPath: /downloads
+          name: medusa-downloads
+      securityContext:
+        fsGroup: 977
+      volumes:
+      - hostPath:
+          path: /srv/configs/sickrage
+        name: medusa-data
+      - hostPath:
+          path: /srv/seedbox
+        name: medusa-downloads
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: medusa
+  namespace: seedbox
+spec:
+  rules:
+  - host: medusa.archifleks.xyz
+    http:
+      paths:
+      - backend:
+          serviceName: medusa
+          servicePort: 8081
+  - host: tv.archifleks.xyz
+    http:
+      paths:
+      - backend:
+          serviceName: medusa
+          servicePort: 8081
