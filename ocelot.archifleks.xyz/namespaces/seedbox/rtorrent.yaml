@@ -90,22 +90,18 @@ spec:
             cpu: "1"
             memory: 200M
         volumeMounts:
-        - mountPath: /config/rtorrent/rtorrent.rc
+        - mountPath: /config/rtorrent/
           name: rtorrent-config
-          subPath: rtorrent.rc
         - mountPath: /downloads
           name: rtorrent-downloads
-        - mountPath: /jfs
-          name: rtorrent-jfs
         - mountPath: /config/rutorrent
           name: rutorrent-config
       securityContext:
         fsGroup: 977
       terminationGracePeriodSeconds: 30
       volumes:
-      - configMap:
-          defaultMode: 420
-          name: rtorrent-config
+      - hostPath:
+          path: /srv/configs/rtorrent
         name: rtorrent-config
       - hostPath:
           path: /srv/configs/rutorrent
@@ -113,9 +109,6 @@ spec:
       - hostPath:
           path: /srv/seedbox
         name: rtorrent-downloads
-      - hostPath:
-          path: /jfs
-        name: rtorrent-jfs
 ---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
