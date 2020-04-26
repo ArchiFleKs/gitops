@@ -1,8 +1,0 @@
-git:
-  pollInterval: 1m
-  url: ssh://git@github.com/archifleks/gitops.git
-  branch: master
-syncGarbageCollection:
-  enabled: true
-registry:
-  automationInterval: "5m"
