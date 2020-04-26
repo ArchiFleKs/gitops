@@ -92,13 +92,8 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: rtorrent-config
-          subPath: rtorrent.rc
         - mountPath: /downloads
           name: rtorrent-downloads
-        - mountPath: /jfs
-          name: rtorrent-jfs
-        - mountPath: /config/rutorrent
-          name: rutorrent-config
       securityContext:
         fsGroup: 977
       terminationGracePeriodSeconds: 30
@@ -106,9 +101,6 @@ spec:
       - hostPath:
           path: /srv/configs/rtorrent
         name: rtorrent-config
-      - hostPath:
-          path: /srv/configs/rutorrent
-        name: rutorrent-config
       - hostPath:
           path: /srv/seedbox
         name: rtorrent-downloads
