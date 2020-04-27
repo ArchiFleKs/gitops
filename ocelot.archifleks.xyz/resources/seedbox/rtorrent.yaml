@@ -23,7 +23,7 @@ kind: Deployment
 metadata:
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.rtorrent: regexp:^latest$
+    flux.weave.works/tag.transmission: glob:amd64-*
   labels:
     app: rtorrent
   name: rtorrent
@@ -108,7 +108,9 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/tls-acme: "true"
   name: torrents
   namespace: seedbox
 spec:
@@ -119,3 +121,7 @@ spec:
       - backend:
           serviceName: rtorrent-internal
           servicePort: 80
+  tls:
+  - hosts:
+    - torrents.archifleks.xyz
+    secretName: tv.archifleks.xyz-cert

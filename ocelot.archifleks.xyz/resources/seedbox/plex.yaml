@@ -18,8 +18,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    flux.weave.works/automated: "true"
-    flux.weave.works/tag.plex: regexp:^latest$
+    flux.weave.works/automated: "false"
   labels:
     app: plex
   name: plex

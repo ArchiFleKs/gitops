@@ -23,7 +23,7 @@ metadata:
   namespace: seedbox
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.couchpotato: regexp:^latest$
+    flux.weave.works/tag.couchpotato: glob:amd64-*
 spec:
   replicas: 1
   revisionHistoryLimit: 1
@@ -83,7 +83,9 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/tls-acme: "true"
   name: couchpotato
   namespace: seedbox
 spec:
@@ -100,3 +102,8 @@ spec:
       - backend:
           serviceName: couchpotato
           servicePort: 5050
+  tls:
+  - hosts:
+    - tv.archifleks.xyz
+    - couchpotato.archifleks.xyz
+    secretName: tv.archifleks.xyz-cert
