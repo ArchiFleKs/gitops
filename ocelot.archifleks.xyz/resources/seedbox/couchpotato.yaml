@@ -25,11 +25,12 @@ metadata:
     flux.weave.works/automated: "true"
     flux.weave.works/tag.couchpotato: glob:amd64-*
 spec:
-  replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: couchpotato
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -96,14 +97,7 @@ spec:
       - backend:
           serviceName: couchpotato
           servicePort: 5050
-  - host: couchpotato.archifleks.xyz
-    http:
-      paths:
-      - backend:
-          serviceName: couchpotato
-          servicePort: 5050
   tls:
   - hosts:
-    - tv.archifleks.xyz
-    - couchpotato.archifleks.xyz
-    secretName: tv.archifleks.xyz-cert
+    - movies.archifleks.xyz
+    secretName: movies.archifleks.xyz-cert
