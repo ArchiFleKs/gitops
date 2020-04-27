@@ -23,7 +23,7 @@ metadata:
   namespace: seedbox
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.couchpotato: glob:amd64-*
+    flux.weave.works/tag.medusa: glob:amd64-*
 spec:
   revisionHistoryLimit: 1
   selector:

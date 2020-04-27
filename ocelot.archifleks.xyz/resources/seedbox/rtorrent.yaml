@@ -23,7 +23,7 @@ kind: Deployment
 metadata:
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.transmission: glob:amd64-*
+    flux.weave.works/tag.rtorrent: glob:amd64-*
   labels:
     app: rtorrent
   name: rtorrent
