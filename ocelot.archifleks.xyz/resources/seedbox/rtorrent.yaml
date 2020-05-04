@@ -64,7 +64,7 @@ spec:
           value: "977"
         - name: TZ
           value: Europe/Paris
-        image: linuxserver/rutorrent:amd64-latest
+        image: linuxserver/rutorrent:amd64-v3.9-ls82
         imagePullPolicy: Always
         name: rtorrent
         ports:
