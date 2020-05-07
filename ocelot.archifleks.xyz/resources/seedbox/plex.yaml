@@ -40,12 +40,12 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: beta.kubernetes.io/arch
+              - key: kubernetes.io/arch
                 operator: In
                 values:
                 - amd64
       initContainers:
-      - name: init-rtorrent
+      - name: init-plex
         image: alpine:3.9
         command: ['sh', '-c', 'rm -rf /config/Library/Application Support/Plex Media
             Server/plexmediaserver.pid']
