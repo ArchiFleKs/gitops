@@ -9,6 +9,10 @@ spec:
     privateKeySecretRef:
       name: acme-account-key
     solvers:
-    - http01:
-        ingress:
-          class: nginx
+    - dns01:
+        route53:
+          region: eu-west-3
+          accessKeyID: AKIASLDLA3PKCNHDUKZX
+          secretAccessKeySecretRef:
+            name: route53-credentials
+            key: AWS_SECRET_ACCESS_KEY
