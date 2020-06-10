@@ -88,6 +88,8 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/auth-url: "https://auth.archifleks.xyz/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://auth.archifleks.xyz/oauth2/start?rd=$escaped_request_uri"
   name: medusa
   namespace: seedbox
 spec:
