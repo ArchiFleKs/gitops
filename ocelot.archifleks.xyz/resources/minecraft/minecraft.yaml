@@ -53,6 +53,12 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: minecraft-data
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
       containers:
       - env:
         - name: JAVA_OPTIONS
