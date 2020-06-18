@@ -53,6 +53,7 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: minecraft-data
+        resources:
           limits:
             cpu: 100m
             memory: 64Mi
