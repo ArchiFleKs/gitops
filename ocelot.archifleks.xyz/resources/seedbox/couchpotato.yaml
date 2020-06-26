@@ -53,7 +53,7 @@ spec:
           value: "977"
         - name: TZ
           value: Europe/Paris
-        image: linuxserver/couchpotato:amd64-7260c12f-ls39
+        image: linuxserver/couchpotato:amd64-7260c12f-ls40
         imagePullPolicy: Always
         name: couchpotato
         ports:
