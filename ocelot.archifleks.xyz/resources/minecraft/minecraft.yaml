@@ -64,7 +64,7 @@ spec:
       - env:
         - name: JAVA_OPTIONS
           value: "-Xms8G -Xmx8G"
-        image: archifleks/spigot:1.15.2
+        image: archifleks/spigot:1.16.1
         imagePullPolicy: Always
         name: minecraft
         ports:
