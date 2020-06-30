@@ -48,7 +48,7 @@ spec:
                 - amd64
       initContainers:
       - name: copy-bin
-        image: archifleks/spigot:1.15.2
+        image: archifleks/spigot:1.16.1
         command: ['sh', '-c', "cp --force /spigot/* /data"]
         volumeMounts:
         - mountPath: /data
