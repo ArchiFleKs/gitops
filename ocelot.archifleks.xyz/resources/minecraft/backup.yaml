@@ -75,7 +75,7 @@ spec:
               done
               tar --exclude='/minecraft/plugins/dynmap' -zcvf /minecraft-backup/minecraft-$DATE.tar.gz /minecraft
               kubectl -n minecraft scale deployment.apps minecraft --replicas 1
-              aws s3 cp /minecraft-backup/minecraft-$DATE.tar.gz s3://aa-minecraft-backup/.
+              aws s3 cp /minecraft-backup/minecraft-$DATE.tar.gz s3://aa-minecraft-backup/
               echo -e "Backup successful."
             volumeMounts:
             - mountPath: /minecraft
