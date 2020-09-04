@@ -7,7 +7,7 @@ spec:
   releaseName: nginx-ingress
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com
-    version: 1.41.0
+    version: 1.41.3
     name: nginx-ingress
   values:
     controller:
