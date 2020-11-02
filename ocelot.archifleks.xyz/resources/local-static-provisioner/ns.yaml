@@ -1,7 +1,0 @@
----
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: local-static-provisioner
-  labels:
-    name: local-static-provisioner
