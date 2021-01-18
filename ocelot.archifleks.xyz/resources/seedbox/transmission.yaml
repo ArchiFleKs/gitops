@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: transmission
-        image: linuxserver/transmission:amd64-3.00-r0-ls72
+        image: linuxserver/transmission:amd64-3.00-r0-ls73
         imagePullPolicy: Always
         ports:
         - containerPort: 51413
