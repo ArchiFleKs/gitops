@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sonarr
+  name: sonarr
+  namespace: seed
+spec:
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr:amd64-version-3.0.6.1265 # {"$imagepolicy": "seed:sonarr"}
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /seed
+          name: seed
+        - mountPath: /config
+          name: config
+        ports:
+        - name: http
+          containerPort: 8989
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: Europe/Paris
+        - name: UMASK
+          value: "022"
+      securityContext:
+        fsGroup: 1000
+      volumes:
+      - name: seed
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/seed
+          # this field is optional
+          type: DirectoryOrCreate
+      - name: config
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/sonarr
+          # this field is optional
+          type: DirectoryOrCreate

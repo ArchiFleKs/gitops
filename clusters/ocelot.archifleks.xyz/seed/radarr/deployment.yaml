@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: radarr
+  name: radarr
+  namespace: seed
+spec:
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      containers:
+      - name: radarr
+        image: linuxserver/radarr:amd64-version-3.2.2.5080 # {"$imagepolicy": "seed:radarr"}
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /seed
+          name: seed
+        - mountPath: /config
+          name: config
+        ports:
+        - name: http
+          containerPort: 7878
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: Europe/Paris
+        - name: UMASK
+          value: "022"
+      securityContext:
+        fsGroup: 1000
+      volumes:
+      - name: seed
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/seed
+          # this field is optional
+          type: DirectoryOrCreate
+      - name: config
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/radarr
+          # this field is optional
+          type: DirectoryOrCreate

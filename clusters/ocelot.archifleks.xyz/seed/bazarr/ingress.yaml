@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: seed
+  name: bazarr
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600s"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: bazarr.archifleks.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: bazarr
+                port:
+                  number: 6767
+  tls:
+  - hosts:
+    - bazarr.archifleks.xyz
+    secretName: bazarr.archifleks.xyz

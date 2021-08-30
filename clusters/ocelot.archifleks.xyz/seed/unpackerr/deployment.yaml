@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: unpackerr
+  name: unpackerr
+  namespace: seed
+spec:
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: unpackerr
+  template:
+    metadata:
+      labels:
+        app: unpackerr
+    spec:
+      containers:
+      - name: unpackerr
+        image: golift/unpackerr:0.9.7 # {"$imagepolicy": "seed:unpackerr"}
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /seed
+          name: seed
+        env:
+        - name: UN_SONARR_0_URL
+          value: "http://sonarr:8989"
+        - name: UN_SONARR_0_API_KEY
+          value: "1fd7e5fc15fd4fde825a8556f38998c0"
+        - name: UN_SONARR_0_PATHS_0
+          value: "/seed/completed/tv"
+        - name: UN_SONARR_0_PROTOCOLS
+          value: "torrent"
+        - name: UN_RADARR_0_URL
+          value: "http://radarr:7878"
+        - name: UN_RADARR_0_API_KEY
+          value: "b5494143c23c458b86aa042398befdca"
+        - name: UN_RADARR_0_PATHS_0
+          value: "/seed/completed/movies"
+        - name: UN_RADARR_0_PROTOCOLS
+          value: "torrent"
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      volumes:
+      - name: seed
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/seed
+          # this field is optional
+          type: DirectoryOrCreate

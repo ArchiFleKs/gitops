@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: seed
+  name: radarr
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600s"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: radarr.archifleks.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: radarr
+                port:
+                  number: 7878
+  tls:
+  - hosts:
+    - radarr.archifleks.xyz
+    secretName: radarr.archifleks.xyz

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jackett
+  name: jackett
+  namespace: seed
+spec:
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: jackett
+  template:
+    metadata:
+      labels:
+        app: jackett
+    spec:
+      containers:
+      - name: jackett
+        image: linuxserver/jackett:version-v0.18.354 # {"$imagepolicy": "seed:jackett"}
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /seed
+          name: seed
+        - mountPath: /config
+          name: config
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: Europe/Paris
+        - name: UMASK
+          value: "022"
+        - name: AUTO_UPDATE
+          value: "false"
+      securityContext:
+        fsGroup: 1000
+      volumes:
+      - name: seed
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/seed
+          # this field is optional
+          type: DirectoryOrCreate
+      - name: config
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/jackett
+          # this field is optional
+          type: DirectoryOrCreate

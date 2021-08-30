@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flaresolverr
+  name: flaresolverr
+  namespace: seed
+spec:
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: flaresolverr
+  template:
+    metadata:
+      labels:
+        app: flaresolverr
+    spec:
+      containers:
+      - name: flaresolverr
+        image: ghcr.io/flaresolverr/flaresolverr:v1.2.8 # {"$imagepolicy": "seed:flaresolverr"}
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /config
+          name: config
+      securityContext:
+        fsGroup: 1000
+      volumes:
+      - name: config
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/flaresolverr
+          # this field is optional
+          type: DirectoryOrCreate

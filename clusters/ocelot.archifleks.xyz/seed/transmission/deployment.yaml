@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: transmission
+  name: transmission
+  namespace: seed
+spec:
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: transmission
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec:
+      initContainers:
+      - name: transmission-config
+        image: alpine:3.14
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /config/settings-cm.json
+          name: settings
+          subPath: settings.json
+        command:
+          - /bin/sh
+          - -c
+          - cp -a /config/settings-cm.json /config/settings.json
+      containers:
+      - name: transmission
+        image: linuxserver/transmission:3.00-r2-ls98
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 51413
+          protocol: TCP
+          hostPort: 51413
+        - containerPort: 51413
+          protocol: UDP
+          hostPort: 51413
+        volumeMounts:
+        - mountPath: /seed
+          name: seed
+        - mountPath: /config
+          name: config
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: Europe/Paris
+        - name: UMASK_SET
+          value: "002"
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+      volumes:
+      - name: seed
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/seed
+          # this field is optional
+          type: DirectoryOrCreate
+      - name: config
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/transmission
+          # this field is optional
+          type: DirectoryOrCreate
+      - name: settings
+        configMap:
+          name: transmission-settings
+          defaultMode: 0777

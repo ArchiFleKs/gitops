@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bazarr
+  name: bazarr
+  namespace: seed
+spec:
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bazarr
+  template:
+    metadata:
+      labels:
+        app: bazarr
+    spec:
+      containers:
+      - name: bazarr
+        image: linuxserver/bazarr:amd64-version-v0.9.5 # {"$imagepolicy": "seed:bazarr"}
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /seed
+          name: seed
+        - mountPath: /config
+          name: config
+        ports:
+        - name: http
+          containerPort: 6767
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: Europe/Paris
+        - name: UMASK
+          value: "022"
+      securityContext:
+        fsGroup: 1000
+      volumes:
+      - name: seed
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/seed
+          # this field is optional
+          type: DirectoryOrCreate
+      - name: config
+        hostPath:
+          # directory location on host
+          path: /srv/hostpaths/bazarr
+          # this field is optional
+          type: DirectoryOrCreate
