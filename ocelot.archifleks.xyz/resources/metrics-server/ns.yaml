@@ -1,7 +1,0 @@
----
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: metrics-server
-  labels:
-    name: metrics-server
