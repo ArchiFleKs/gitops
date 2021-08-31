@@ -48,6 +48,13 @@ spec:
         - mountPath: /config
           name: config
         env:
+        - name: USER
+          value: "klefevre"
+        - name: PASS
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: transmission-secret
         - name: PGID
           value: "1000"
         - name: PUID
