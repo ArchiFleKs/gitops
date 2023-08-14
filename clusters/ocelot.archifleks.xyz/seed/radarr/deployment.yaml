@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: radarr
-        image: linuxserver/radarr:amd64-version-3.2.2.5080 # {"$imagepolicy": "seed:radarr"}
+        image: linuxserver/radarr:4.7.5 # {"$imagepolicy": "seed:radarr"}
         imagePullPolicy: Always
         volumeMounts:
         - mountPath: /seed

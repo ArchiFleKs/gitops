@@ -33,7 +33,7 @@ spec:
           - cp -a /config/settings-cm.json /config/settings.json
       containers:
       - name: transmission
-        image: linuxserver/transmission:3.00-r2-ls98
+        image: linuxserver/transmission:4.0.3
         imagePullPolicy: Always
         ports:
         - containerPort: 51413

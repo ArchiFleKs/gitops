@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: sonarr
-        image: linuxserver/sonarr:amd64-version-3.0.6.1265 # {"$imagepolicy": "seed:sonarr"}
+        image: linuxserver/sonarr:3.0.10 # {"$imagepolicy": "seed:sonarr"}
         imagePullPolicy: Always
         volumeMounts:
         - mountPath: /seed

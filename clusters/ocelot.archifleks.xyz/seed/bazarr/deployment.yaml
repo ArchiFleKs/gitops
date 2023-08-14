@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: bazarr
-        image: linuxserver/bazarr:amd64-version-v0.9.5 # {"$imagepolicy": "seed:bazarr"}
+        image: linuxserver/bazarr:1.2.4 # {"$imagepolicy": "seed:bazarr"}
         imagePullPolicy: Always
         volumeMounts:
         - mountPath: /seed
